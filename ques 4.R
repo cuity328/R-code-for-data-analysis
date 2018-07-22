@@ -1,0 +1,6 @@
+Btestdata=readRDS(file="Btestdata.rds")
+head(Btestdata)
+mylogit=glm(Bank~ROE,data=Btestdata,family="binomial")
+summary(mylogit)
+myprobit=glm(Bank~ROE,family=binomial(link="probit"),data=Btestdata)
+summary(myprobit)
