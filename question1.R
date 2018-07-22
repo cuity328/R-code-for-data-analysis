@@ -1,0 +1,15 @@
+install.packages("plm")
+library(plm)
+FinalDF=readRDS(file="FinalDF.rds")
+fixed=plm(LERW~IHHI+FHHI+ECI+GGI,data=FinalDF,index=c("Country","Year"),model="within")
+summary(fixed)
+fixedpool=plm(LERW~IHHI+FHHI+ECI+GGI,data=FinalDF,
+              index=c("Country","Year"),model="pooling")
+pFtest(fixed, fixedpool)
+fixed2=plm(LERW~FHHI,data=FinalDF,index=c("Country","Year"),model="within")
+summary(fixed2)
+plot(resid(fixed2))
+qqnorm(resid(fixed2))
+qqline(resid(fixed2))
+
+summary(fixef(fixed2))
